@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>宁职大新生服务</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome 图标 -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 自定义 Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#36BFFA',
+            neutral: '#F5F7FA',
+            dark: '#333F51',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .card-shadow {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      }
+      .hover-scale {
+        transition: transform 0.2s ease-in-out;
+      }
+      .hover-scale:hover {
+        transform: scale(1.03);
+      }
+      .text-shadow {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+  <!-- 顶部装饰条 -->
+  <div class="h-1 bg-gradient-to-r from-primary to-secondary"></div>
+  
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- 页面标题 -->
+    <div class="text-center mb-10">
+      <h1 class="text-[clamp(1.8rem,4vw,2.5rem)] font-bold text-dark mb-2">
+        宁波职业技术学院
+      </h1>
+      <p class="text-gray-600 text-lg">新生入学服务平台</p>
+    </div>
+    
+    <!-- 主要内容卡片 -->
+    <div class="bg-white rounded-xl p-6 md:p-8 card-shadow hover-scale">
+      <!-- 第一行：文字描述 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="description-item flex flex-col items-center justify-center p-4 rounded-lg bg-neutral">
+          <i class="fa fa-graduation-cap text-primary text-2xl mb-2"></i>
+          <h3 class="text-dark font-medium text-lg">录取查询</h3>
+        </div>
+        <div class="description-item flex flex-col items-center justify-center p-4 rounded-lg bg-neutral">
+          <i class="fa fa-users text-primary text-2xl mb-2"></i>
+          <h3 class="text-dark font-medium text-lg">新生群</h3>
+        </div>
+        <div class="description-item flex flex-col items-center justify-center p-4 rounded-lg bg-neutral">
+          <i class="fa fa-question-circle text-primary text-2xl mb-2"></i>
+          <h3 class="text-dark font-medium text-lg">专升本咨询</h3>
+        </div>
+      </div>
+
+      <!-- 第二行：超链接 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 普通链接（直接跳转） -->
+        <a href="https://zhaosheng.nbpt.edu.cn/lq/?type=6&list_name=" class="link-item flex flex-col items-center justify-center p-5 rounded-lg bg-primary/5 border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300">
+          <i class="fa fa-link text-xl mb-2"></i>
+          <span>点击访问</span>
+        </a>
+        
+        <!-- 二维码链接1（点击弹本地图片） -->
+        <div class="link-item qrcode-link flex flex-col items-center justify-center p-5 rounded-lg bg-primary/5 border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 cursor-pointer" data-img="D:\桌面\网页资料\ma.png">
+          <i class="fa fa-qrcode text-xl mb-2"></i>
+          <span>扫码进群</span>
+        </div>
+        
+        <!-- 二维码链接2（点击弹本地图片） -->
+        <div class="link-item qrcode-link flex flex-col items-center justify-center p-5 rounded-lg bg-primary/5 border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 cursor-pointer" data-img="D:\桌面\网页资料\ma.png">
+          <i class="fa fa-qrcode text-xl mb-2"></i>
+          <span>咨询详情</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 页脚信息 -->
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      <p>© 2023 宁波职业技术学院 </p>
+         </footer>
+  </div>
+
+  <!-- 模态框：用于显示本地二维码图片 -->
+  <div id="qrcode-modal" class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 transform scale-95 transition-transform duration-300">
+      <div class="flex justify-between items-start mb-4">
+        <h3 class="text-xl font-bold text-dark">扫描二维码</h3>
+        <span class="close text-gray-400 hover:text-dark text-2xl cursor-pointer">&times;</span>
+      </div>
+      <div class="p-4 bg-neutral rounded-lg flex justify-center">
+        <img id="qrcode-img" src="" alt="二维码" class="max-w-full max-h-[300px] object-contain rounded-md" />
+      </div>
+      <div class="mt-4 text-center">
+        <p class="text-gray-600">请使用微信或支付宝扫描二维码</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. 获取 DOM 元素
+    const modal = document.getElementById("qrcode-modal");
+    const closeBtn = document.querySelector(".close");
+    const qrcodeImg = document.getElementById("qrcode-img");
+    const qrcodeLinks = document.querySelectorAll(".qrcode-link");
+    const modalContent = modal.querySelector(".bg-white");
+
+    // 2. 点击“二维码”链接：显示模态框 + 加载本地图片
+    qrcodeLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        const imgPath = this.getAttribute("data-img");
+        qrcodeImg.src = imgPath;
+        
+        // 显示模态框并添加动画
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modalContent.classList.remove("scale-95");
+        modalContent.classList.add("scale-100");
+        
+        // 禁止背景滚动
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    // 3. 点击“关闭按钮”：隐藏模态框
+    closeBtn.addEventListener("click", closeModal);
+
+    // 4. 点击“模态框外部”：隐藏模态框
+    modal.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    // 5. 关闭模态框的函数
+    function closeModal() {
+      modal.classList.add("opacity-0", "pointer-events-none");
+      modalContent.classList.remove("scale-100");
+      modalContent.classList.add("scale-95");
+      
+      // 恢复背景滚动
+      document.body.style.overflow = "";
+    }
+
+    // 6. 键盘 ESC 键关闭模态框
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !modal.classList.contains("opacity-0")) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
